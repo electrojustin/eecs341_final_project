@@ -11,16 +11,27 @@ public class WebLogin implements HttpHandler
 	{
 		String userSessionId = exchange.getRequestHeaders().getFirst("Cookie");
 
+		if (getUserame(exchange) == null)
+			return false;
+		else
+			return true;
+	}
+
+	public static String getUsername (HttpExchange exchange)
+	{
+		String userSessionId = exchange.getRequestHeaders().getFirst("Cookie");
+		int i;
+
 		if (userSessionId == null || userSessionId.equals("0"))
 			return false;
 
-		for (int sessionId : MuzikrWeb.sessionIds)
+		for (i = 0; i < MuzikrWeb.sessionIds.size(); i++)
 		{
-			if (sessionId == Integer.parseInt(userSessionId))
-				return true;
+			if (MuzikrWeb.sessionIds.get(i) == Integer.parseInt(userSessionId))
+				return MuzikrWeb.loginUsernames.get(i);
 		}
 
-		return false;
+		return null;
 	}
 
 	private static void login (HttpExchange exchange, String username) throws IOException
