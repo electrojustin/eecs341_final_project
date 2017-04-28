@@ -74,6 +74,7 @@ public class WebSearch implements HttpHandler
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI());
 		String songKeyword;
 		String artistKeyword;
+		String albumKeyword;
 		String response;
 		OutpuStream output = exchange.getResponseBody();
 		ArrayList<String[]> results;
@@ -85,6 +86,8 @@ public class WebSearch implements HttpHandler
 				artistKeyword = parsedRequest.get(i+1);
 			else if (parsedRequest.get(i).equals("song"))
 				songKeyword = parsedRequest.get(i+1);
+			else if (parsedReqest.get(i).equals("album"))
+				albumKeyword = parsedRequest.get(i+1);
 			else
 			{
 				response = "<html>Error: invalid search key ";
@@ -99,7 +102,8 @@ public class WebSearch implements HttpHandler
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";
-		response += songListing(exchange, getResults()); //Get results needs to actually be implemented
+		response += songListing(exchange, new ArrayList<String[]>({{"Never Gonna Give You Up", "Foo bar"}}));
+		//response += songListing(exchange, getResults()); //Get results needs to actually be implemented
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>;
 

@@ -56,10 +56,9 @@ public class WebLogin implements HttpHandler
 
 	public void handle (HttpExchange exchange) throws IOException
 	{
-		System.out.println(exchange.getRequestURI().getQuery());
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
 
-		if (parsedRequest != null && parsedRequest.get(0).equals("username") && parsedRequest.get(2).equals("passwd"))
+		if (parsedRequest.get(0).equals("username") && parsedRequest.get(2).equals("passwd") && parsedRequest.get(1) != null && parsedRequest.get(3) != null)
 		{
 			if (true)//isValidLogin()) //This function needs to be defined at the database level
 			{
@@ -73,7 +72,7 @@ public class WebLogin implements HttpHandler
 					output.close();
 				}
 				else
-					login(exchange, parsedRequest.get(3));
+					login(exchange, parsedRequest.get(1));
 			}
 			else
 			{

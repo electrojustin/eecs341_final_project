@@ -14,7 +14,7 @@ public class WebHome implements HttpHandler
 		response += " Username: ";
 		response += " <br /><input type=\"text\" name=\"username\">";
 		response += " <br />Password: ";
-		response += " <br /><input type=\"text\" name=\"passwd\">";
+		response += " <br /><input type=\"password\" name=\"passwd\">";
 		response += " <br /><input type=\"submit\" value=\"Login\">";
 		response += " <br /><br /><br />";
 		response += " <a href=\"logout\">Logout</a>";
