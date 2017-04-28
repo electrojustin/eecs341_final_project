@@ -11,7 +11,7 @@ public class WebLogin implements HttpHandler
 	{
 		String userSessionId = exchange.getRequestHeaders().getFirst("Cookie");
 
-		if (getUserame(exchange) == null)
+		if (getUsername(exchange) == null)
 			return false;
 		else
 			return true;
@@ -23,7 +23,7 @@ public class WebLogin implements HttpHandler
 		int i;
 
 		if (userSessionId == null || userSessionId.equals("0"))
-			return false;
+			return null;
 
 		for (i = 0; i < MuzikrWeb.sessionIds.size(); i++)
 		{
@@ -56,9 +56,10 @@ public class WebLogin implements HttpHandler
 
 	public void handle (HttpExchange exchange) throws IOException
 	{
+		System.out.println(exchange.getRequestURI().getQuery());
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
 
-		if (parsedRequest.get(0).equals("username") && parsedRequest.get(2).equals("passwd"))
+		if (parsedRequest != null && parsedRequest.get(0).equals("username") && parsedRequest.get(2).equals("passwd"))
 		{
 			if (true)//isValidLogin()) //This function needs to be defined at the database level
 			{

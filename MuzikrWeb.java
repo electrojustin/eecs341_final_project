@@ -20,6 +20,10 @@ public class MuzikrWeb
 		for (String keypair : keypairs)
 		{
 			String[] parsedPair = keypair.split("=");
+
+			if (parsedPair.length != 2)
+				return null;
+
 			ret.add(parsedPair[0]);
 			ret.add(parsedPair[1]);
 		}
