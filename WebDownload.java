@@ -9,14 +9,15 @@ public class WebDownload implements HttpHandler
 	public void handle (HttpExchange exchange) throws IOException
 	{
 		OutputStream output = exchange.getResponseBody();
-		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI());
+		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
 		byte[] file;
 
 		if (WebLogin.isLoggedIn(exchange))
 		{
 			if (parsedRequest.get(0).equals("songname") && parsedRequest.get(2).equals("albumname"))
 			{
-				file = getFile(); //More placeholder code
+				file = null;
+				//file = getFile(); //More placeholder code
 				if (file == null)
 				{
 					String response = "<html>Error: you do not own this song";

@@ -37,6 +37,9 @@ public class MuzikrWeb
 		server.createContext("/login", new WebLogin());
 		server.createContext("/logout", new WebLogout());
 		server.createContext("/home", new WebHome());
+		server.createContext("/search", new WebSearch());
+		server.createContext("/download", new WebDownload());
+		server.createContext("/buy", new WebBuy());
 		server.start(); 
 	}
 }

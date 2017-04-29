@@ -71,7 +71,7 @@ public class WebSearch implements HttpHandler
 	@Override
 	public void handle (HttpExchange exchange) throws IOException
 	{
-		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI());
+		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
 		String songKeyword;
 		String artistKeyword;
 		String response;
@@ -99,7 +99,9 @@ public class WebSearch implements HttpHandler
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";
-		response += songListing(exchange, getResults()); //Get results needs to actually be implemented
+		results = new ArrayList<String[]>({"Never Gonna Give You Up", "Whenever You Need Somebody"});
+		resposne += songListing(exchange, getResults());
+		//response += songListing(exchange, getResults()); //Get results needs to actually be implemented
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>;
 

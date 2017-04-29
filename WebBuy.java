@@ -9,7 +9,7 @@ public class WebBuy implements HttpHandler
 	public void handle (HttpExchange exchange) throws IOException
 	{
 		OutputStream output = exchange.getResponseBody();
-		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI());
+		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
 		String username = WebLogin.getUsername(exchange);
 	
 		if (username != null)
