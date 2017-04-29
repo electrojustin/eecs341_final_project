@@ -14,7 +14,7 @@ public class WebHome implements HttpHandler
 		response += " Username: \n";
 		response += " <br /><input type=\"text\" name=\"username\">\n";
 		response += " <br />Password: \n";
-		response += " <br /><input type=\"text\" name=\"passwd\">\n";
+		response += " <br /><input type=\"password\" name=\"passwd\">\n";
 		response += " <br /><input type=\"submit\" value=\"Login\">\n";
 		response += " <br /><br /><br />\n";
 		response += " <a href=\"logout\">Logout</a>\n";
@@ -24,7 +24,7 @@ public class WebHome implements HttpHandler
 		response += " Search by song name: \n";
 		response += " <br /><input type=\"text\" name=\"song\">\n";
 		response += " <br />Search by artist: \n";
-		resposne += " <br /><input type=\"text\" name=\"artist
+		resposne += " <br /><input type=\"text
 
 		OutputStream output = exchange.getResponseBody();
 		exchange.sendResponseHeaders(200, response.length());
