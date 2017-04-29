@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.OutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -9,56 +9,55 @@ public class WebSearch implements HttpHandler
 	public static String songListing (HttpExchange exchange, ArrayList<String[]> results)
 	{
 		boolean isLoggedIn = WebLogin.isLoggedIn(exchange);
-		String response = "<table>\n";
+		String response = "<table style=\"width:75%\">\n";
 		response += " <tr>\n";
-		response += "  <th>Song</th>\n";
-		response += "  <th>Album</th>\n";
+		response += "  <th style=\"text-align:left\">Song</th>\n";
+		response += "  <th style=\"text-align:left\">Album</th>\n";
+		response += "  <th style=\"text-align:left\">View Details</th>\n";
 		if (isLoggedIn)
 		{
-			response += "  <th>Download</th>\n";
-			response += "  <th>Playlist</th>\n";
-			resposne += "  <th>View Details</th>\n";
+			response += "  <th style=\"text-align:left\">Download</th>\n";
+			response += "  <th style=\"text-align:left\">Add To Playlist</th>\n";
 		}
 		response += " </tr>\n";
-
-		results = getResults(); //This needs to actually be added
 		
 		for (String[] result : results)
 		{
 			response += " <tr>\n";
-			response += "  <th>" + result[0] + "</th>\n";
-			response += "  <th>" + result[1] + "</th>\n";
+			response += "  <td>" + result[0] + "</td>\n";
+			response += "  <td>" + result[1] + "</td>\n";
 
-			response += "  <th><a href=\"/details?songname=";
+			response += "  <td><a href=\"/details?songname=";
 			response += result[0];
 			response += "&albumname=";
 			response += result[1];
-			response += "\">Details</a></th>";
+			response += "\">Details</a></td>\n";
 
 			if (isLoggedIn)
 			{
-				if (ownSong()) //This needs to actually be added
+				if (true)
+				//if (ownSong()) //This needs to actually be added
 				{
-					response += "  <th><a href=\"/download?songname=";
+					response += "  <td><a href=\"/download?songname=";
 					response += result[0];
 					response += "&albumname=";
 					response += result[1];
-					response += "\">Download</a></th>\n";
+					response += "\">Download</a></td>\n";
 				}
 				else
 				{
-					response += "  <th><a href=\"/buy?songname=";
+					response += "  <td><a href=\"/buy?songname=";
 					response += result[0];
 					response += "&albumname=";
 					response += result[1];
-					response += "\">Buy</a></th>\n";
+					response += "\">Buy</a></td>\n";
 				}
 
-				response += "  <th><a href=\"/selectplay?songname=";
+				response += "  <td><a href=\"/selectplay?songname=";
 				response += result[0];
 				response += "&albumname=";
 				response += result[1];
-				response += ">Add</a></th>\n";
+				response += "\">Add</a></td>\n";
 			}
 
 			response += " </tr>\n";
@@ -75,8 +74,9 @@ public class WebSearch implements HttpHandler
 		String songKeyword;
 		String artistKeyword;
 		String albumKeyword;
+		String producerKeyword;
 		String response;
-		OutpuStream output = exchange.getResponseBody();
+		OutputStream output = exchange.getResponseBody();
 		ArrayList<String[]> results;
 		int i = 0;
 
@@ -86,8 +86,10 @@ public class WebSearch implements HttpHandler
 				artistKeyword = parsedRequest.get(i+1);
 			else if (parsedRequest.get(i).equals("song"))
 				songKeyword = parsedRequest.get(i+1);
-			else if (parsedReqest.get(i).equals("album"))
+			else if (parsedRequest.get(i).equals("album"))
 				albumKeyword = parsedRequest.get(i+1);
+			else if (parsedRequest.get(i).equals("producer"))
+				producerKeyword = parsedRequest.get(i+1);
 			else
 			{
 				response = "<html>Error: invalid search key ";
@@ -102,10 +104,15 @@ public class WebSearch implements HttpHandler
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";
-		response += songListing(exchange, new ArrayList<String[]>({{"Never Gonna Give You Up", "Foo bar"}}));
+		String[] result1 = new String[2];
+		result1 [0] = "Never Gonna Give You Up";
+		result1 [1] = "Foo Bar";
+		results = new  ArrayList<String[]>();
+		results.add(result1);
+		response += songListing(exchange, results);
 		//response += songListing(exchange, getResults()); //Get results needs to actually be implemented
 		response += "<br /><br />\n";
-		response += "<a href=\"/home\">homepage</a></html>;
+		response += "<a href=\"/home\">homepage</a></html>";
 
 		exchange.sendResponseHeaders(200, response.length());
 		output.write(response.getBytes());
