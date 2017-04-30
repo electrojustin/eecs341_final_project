@@ -14,7 +14,7 @@ public class WebBuy implements HttpHandler
 	
 		if (username != null)
 		{
-			if (parsedRequest.get(0).equals("songname") && parsedRequest.get(2).equals("albumname"))
+			if (parsedRequest.get(0).equals("songname") && parsedRequest.get(2).equals("albumname") && parsedRequest.get(1) != null && parsedRequest.get(3) != null)
 			{
 				//Insert buying code here
 

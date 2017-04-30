@@ -40,8 +40,22 @@ public class WebLogin implements HttpHandler
 		Random rand = new Random();
 		int userSessionId = rand.nextInt(Integer.MAX_VALUE);
 
-		MuzikrWeb.sessionIds.add(userSessionId);
-		MuzikrWeb.loginUsernames.add(username);
+		try
+		{
+			MuzikrWeb.loginSemaphore.acquire();
+			MuzikrWeb.sessionIds.add(userSessionId);
+			MuzikrWeb.loginUsernames.add(username);
+			MuzikrWeb.loginSemaphore.release();
+		}
+		catch (InterruptedException e)
+		{
+			String response = "<html>Error logging in";
+			response += " <br /> <a href=\"/home\">homepage</a></html>";
+			exchange.sendResponseHeaders(200, response.length());
+			output.write(response.getBytes());
+			output.close();
+			return;
+		}
 
 		String response = "<html>You are now logged in as ";
 		response += username;

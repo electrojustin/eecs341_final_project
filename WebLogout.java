@@ -8,6 +8,7 @@ public class WebLogout implements HttpHandler
 {
 	public void handle (HttpExchange exchange) throws IOException
 	{
+		OutputStream output = exchange.getResponseBody();
 		String userSessionId = exchange.getRequestHeaders().getFirst("Cookie");
 		int i;
 
@@ -17,15 +18,28 @@ public class WebLogout implements HttpHandler
 			{
 				if (MuzikrWeb.sessionIds.get(i) == Integer.parseInt(userSessionId))
 				{
-					MuzikrWeb.sessionIds.remove(i);
-					MuzikrWeb.loginUsernames.remove(i);
+					try
+					{
+						MuzikrWeb.loginSemaphore.acquire();
+						MuzikrWeb.sessionIds.remove(i);
+						MuzikrWeb.loginUsernames.remove(i);
+						MuzikrWeb.loginSemaphore.release();
+					}
+					catch (InterruptedException e)
+					{
+						String response = "<html>Error logging out";
+						response += " <br /> <a href=\"/home\">homepage</a></html>";
+						exchange.sendResponseHeaders(200, response.length());
+						output.write(response.getBytes());
+						output.close();
+						return;
+					}
 				}
 			}
 		}
 
 		String response = "<html>You are now logged out";
 		response += " <br /> <a href=\"/home\">homepage</a></html>";
-		OutputStream output = exchange.getResponseBody();
 		exchange.getResponseHeaders().set("Set-Cookie", "0");
 		exchange.sendResponseHeaders(200, response.length());
 		output.write(response.getBytes());

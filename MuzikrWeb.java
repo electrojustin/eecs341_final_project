@@ -6,9 +6,11 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 public class MuzikrWeb
 {
+	public static Semaphore loginSemaphore;
 	public static ArrayList<Integer> sessionIds;
 	public static ArrayList<String> loginUsernames;
 	
@@ -35,6 +37,7 @@ public class MuzikrWeb
 	{
 		HttpServer server = HttpServer.create(new InetSocketAddress(80), 0);
 
+		loginSemaphore = new Semaphore(1, true);
 		sessionIds = new ArrayList<Integer>();
 		loginUsernames = new ArrayList<String>();
 
@@ -43,7 +46,9 @@ public class MuzikrWeb
 		server.createContext("/home", new WebHome());
 		server.createContext("/search", new WebSearch());
 		server.createContext("/download", new WebDownload());
+		server.createContext("/playlist", new WebPlaylist());
 		server.createContext("/buy", new WebBuy());
+		server.createContext("/selectplay", new WebPlaylistSelect());
 		server.start(); 
 	}
 }

@@ -75,9 +75,9 @@ public class WebSearch implements HttpHandler
 		String artistKeyword;
 		String albumKeyword;
 		String producerKeyword;
+		boolean onlyShowUser = false;
 		String response;
 		OutputStream output = exchange.getResponseBody();
-		ArrayList<String[]> results;
 		int i = 0;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -90,6 +90,8 @@ public class WebSearch implements HttpHandler
 				albumKeyword = parsedRequest.get(i+1);
 			else if (parsedRequest.get(i).equals("producer"))
 				producerKeyword = parsedRequest.get(i+1);
+			else if (parsedRequest.get(i).equals("mysongs"))
+				onlyShowUser = true;
 			else
 			{
 				response = "<html>Error: invalid search key ";
@@ -107,7 +109,7 @@ public class WebSearch implements HttpHandler
 		String[] result1 = new String[2];
 		result1 [0] = "Never Gonna Give You Up";
 		result1 [1] = "Foo Bar";
-		results = new  ArrayList<String[]>();
+		ArrayList<String[]> results = new ArrayList<String[]>();
 		results.add(result1);
 		response += songListing(exchange, results);
 		//response += songListing(exchange, getResults()); //Get results needs to actually be implemented
