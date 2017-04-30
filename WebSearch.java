@@ -8,6 +8,11 @@ public class WebSearch implements HttpHandler
 {
 	public static String songListing (HttpExchange exchange, ArrayList<String[]> results)
 	{
+		return songListing(exchange, results, null, null);
+	}
+
+	public static String songListing (HttpExchange exchange, ArrayList<String[]> results, String removePlaylist, String removePlaylistCreator)
+	{
 		boolean isLoggedIn = WebLogin.isLoggedIn(exchange);
 		String response = "<table style=\"width:75%\">\n";
 		response += " <tr>\n";
@@ -17,7 +22,10 @@ public class WebSearch implements HttpHandler
 		if (isLoggedIn)
 		{
 			response += "  <th style=\"text-align:left\">Download</th>\n";
-			response += "  <th style=\"text-align:left\">Add To Playlist</th>\n";
+			if (removePlaylist == null)
+				response += "  <th style=\"text-align:left\">Add To Playlist</th>\n";
+			else
+				response += "  <th style=\"text-align:left\">Remove From Playlist</th>\n";
 		}
 		response += " </tr>\n";
 		
@@ -53,11 +61,26 @@ public class WebSearch implements HttpHandler
 					response += "\">Buy</a></td>\n";
 				}
 
-				response += "  <td><a href=\"/selectplay?songname=";
-				response += result[0];
-				response += "&albumname=";
-				response += result[1];
-				response += "\">Add</a></td>\n";
+				if (removePlaylist == null)
+				{
+					response += "  <td><a href=\"/selectplay?songname=";
+					response += result[0];
+					response += "&albumname=";
+					response += result[1];
+					response += "\">Add</a></td>\n";
+				}
+				else
+				{
+					response += "  <td><a href=\"/removesong?songname=";
+					response += result[0];
+					response += "&albumname=";
+					response += result[1];
+					response += "&playlist=";
+					response += removePlaylist;
+					response += "&creator=";
+					response += removePlaylistCreator;
+					response += "\">Remove</a></td>\n";
+				}
 			}
 
 			response += " </tr>\n";

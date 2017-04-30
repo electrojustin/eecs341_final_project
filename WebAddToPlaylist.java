@@ -4,24 +4,29 @@ import java.util.ArrayList;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 
-public class WebPlaylistSelect implements HttpHandler
+public class WebAddToPlaylist implements HttpHandler
 {
 	public void handle (HttpExchange exchange) throws IOException
 	{
 		String response;
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
+		String playlistKeyword = null;
+		String creatorKeyword = null;
+		String songKeyword = null;
+		String albumKeyword = null;
 		OutputStream output = exchange.getResponseBody();
-		String songName = null;
-		String albumName = null;
-		String addUrl = "/addtoplaylist?";
 		int i;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
 		{
-			if (parsedRequest.get(i).equals("songname"))
-				songName = parsedRequest.get(i+1);
+			if (parsedRequest.get(i).equals("playlistname"))
+				playlistKeyword = parsedRequest.get(i+1);
+			else if (parsedRequest.get(i).equals("username"))
+				creatorKeyword = parsedRequest.get(i+1);
+			else if (parsedRequest.get(i).equals("songname"))
+				songKeyword = parsedRequest.get(i+1);
 			else if (parsedRequest.get(i).equals("albumname"))
-				albumName = parsedRequest.get(i+1);
+				albumKeyword = parsedRequest.get(i+1);
 			else
 			{
 				response = "<html>Error: invalid search key ";
@@ -34,7 +39,8 @@ public class WebPlaylistSelect implements HttpHandler
 			}
 		}
 
-		if (songName == null || albumName == null)
+		if (playlistKeyword == null || creatorKeyword == null
+		    || songKeyword == null || albumKeyword == null)
 		{
 			response = "<html>Error: invalid search key ";
 			response += " <br /> <a href=\"/home\">homepage</a></html>";
@@ -43,27 +49,11 @@ public class WebPlaylistSelect implements HttpHandler
 			output.close();
 			return;
 		}
-		addUrl += "songname=";
-		addUrl += songName;
-		addUrl += "&albumname=";
-		addUrl += albumName;
-		addUrl += "&";
 
-		response = "<html><h3>Select a playlist to add to</h3>\n";
-		response += " <br />\n";
-		ArrayList<String[]> results = new ArrayList<String[]>();
-		String[] result1 = new String[4];
-		result1 [0] = "MyFavSongs";
-		result1 [1] = "testUser";
-		result1 [2] = "23";
-		result1 [3] = "120";
-		results.add(result1);
-		response += WebPlaylist.playlistListing(results, "Add To Playlist", "Add", addUrl);
-		//Replace the above with the below once we have actual database results
-		//response += playlistListing(getResults(), "Add To Playlist", "Add", "/addtoplaylist?");
-		response += "<br /><br />\n";
-		response += "<a href=\"/home\">homepage</a></html>";
+		//Add the actual database stuff here
 
+		response = "<html>Song was successfully added to playlist\n";
+		response += " <br /><a href=\"/home\">homepage</a></html>";
 		exchange.sendResponseHeaders(200, response.length());
 		output.write(response.getBytes());
 		output.close();
