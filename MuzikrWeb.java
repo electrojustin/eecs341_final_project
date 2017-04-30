@@ -53,6 +53,8 @@ public class MuzikrWeb
 		server.createContext("/addtoplaylist", new WebAddToPlaylist());
 		server.createContext("/removesong", new WebRemoveFromPlaylist());
 		server.createContext("/details", new WebSongDetails());
+		server.createContext("/profile", new WebUserProfile());
+		server.createContext("/usersearch", new WebUserSearch());
 		server.start(); 
 	}
 }

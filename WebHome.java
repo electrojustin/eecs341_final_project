@@ -55,6 +55,23 @@ public class WebHome implements HttpHandler
 		response += " <br />Search by playlist creator: \n";
 		response += " <br /><input type=\"text\" name=\"creator\">\n";
 		response += " <br /><input type=\"submit\" value=\"Search\">\n";
+		response += " </form>\n";
+
+		if (isLoggedIn)
+		{
+			response += " <br /><br />";
+			response += " <a href=\"/profile?username=";
+			response += WebLogin.getUsername(exchange);
+			response += "\">My Profile</a>\n";
+		}
+
+		response += " <br /><br />";
+		response += " <br /><h3>Search for users here: </h3>\n";
+		response += " <form action=\"/usersearch\">\n";
+		response += " Username: \n";
+		response += " <br /><input type=\"text\" name=\"username\">\n";
+		response += " <br /><input type=\"submit\" value=\"Search\">\n";
+		response += " </form>\n";
 
 		response += "</html>";
 
