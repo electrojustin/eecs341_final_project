@@ -94,13 +94,14 @@ public class WebSearch implements HttpHandler
 	public void handle (HttpExchange exchange) throws IOException
 	{
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
-		String songKeyword;
-		String artistKeyword;
-		String albumKeyword;
-		String producerKeyword;
+		String songKeyword = null;
+		String artistKeyword = null;
+		String albumKeyword = null;
+		String producerKeyword = null;
 		boolean onlyShowUser = false;
 		String response;
 		OutputStream output = exchange.getResponseBody();
+		SongSearch searcher = new SongSearch();
 		int i = 0;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -129,13 +130,13 @@ public class WebSearch implements HttpHandler
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";
-		String[] result1 = new String[2];
+		/*String[] result1 = new String[2];
 		result1 [0] = "Never Gonna Give You Up";
 		result1 [1] = "Foo Bar";
 		ArrayList<String[]> results = new ArrayList<String[]>();
 		results.add(result1);
-		response += songListing(exchange, results);
-		//response += songListing(exchange, getResults()); //Get results needs to actually be implemented
+		response += songListing(exchange, results);*/
+		response += songListing(exchange, searcher.search(songKeyword, artistKeyword, albumKeyword, producerKeyword));
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";
 
