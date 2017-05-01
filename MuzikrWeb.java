@@ -57,6 +57,9 @@ public class MuzikrWeb
 		server.createContext("/usersearch", new WebUserSearch());
 		server.createContext("/artistportal", new WebArtistProfile());
 		server.createContext("/newsong", new WebNewSong());
+		server.createContext("/newalbum", new WebNewAlbum());
+		server.createContext("/signup", new WebSignUp());
+		server.createContext("/createuser", new WebCreateUser());
 		server.start(); 
 	}
 }
