@@ -5,7 +5,7 @@ public class MuzikrDB
 	
 	private static Connection connection;
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException
+	/*public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 		init();
 		ResultSet rs = getUsers();
@@ -19,19 +19,22 @@ public class MuzikrDB
 			}
 			System.out.println();
 		}
-	}
+	}*/
 
 	public static void init() throws ClassNotFoundException, SQLException
 	{
 		Class.forName("org.mariadb.jdbc.Driver");
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/muzikr", "eecs341", 
-"eecs341");		
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/muzikr", "eecs341", "eecs341");		
+	}
+
+	public static Connection getConnection()
+	{
+		return connection;
 	}
 
 	private static boolean isValidLogin(String user, String pass) throws SQLException
 	{
-		String loginQuery = "select username, passwordSalt, passwordHash from User where username = 
-?";
+		String loginQuery = "select username, passwordSalt, passwordHash from User where username = ?";
 		PreparedStatement s = connection.prepareStatement(loginQuery);
 		s.setString(1, user);
 		ResultSet result = s.executeQuery();

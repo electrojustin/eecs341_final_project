@@ -14,6 +14,7 @@ public class WebViewPlaylist implements HttpHandler
 		String creatorKeyword = null;
 		String username = WebLogin.getUsername(exchange);
 		OutputStream output = exchange.getResponseBody();
+		ViewPlaylist view = new ViewPlaylist();
 		int i;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -46,21 +47,21 @@ public class WebViewPlaylist implements HttpHandler
 
 		response = "<html><h3>Playlist Songs:</h3>\n";
 		response += " <br />\n";
-		String[] result1 = new String[2];
-		result1 [0] = "Never Gonna Give You Up";
-		result1 [1] = "Foo Bar";
-		ArrayList<String[]> results = new ArrayList<String[]>();
-		results.add(result1);
+		//String[] result1 = new String[2];
+		//result1 [0] = "Never Gonna Give You Up";
+		//result1 [1] = "Foo Bar";
+		//ArrayList<String[]> results = new ArrayList<String[]>();
+		//results.add(result1);
 		if (username != null && creatorKeyword.equals(username))
 		{
-			response += WebSearch.songListing(exchange, results, playlistKeyword, creatorKeyword);
-			//response += WebSearch.songListing(exchange, getResults(), playlistKeyword, creatorKeyword);
+			//response += WebSearch.songListing(exchange, results, playlistKeyword, creatorKeyword);
+			response += WebSearch.songListing(exchange, view.getPlaylistSongs(playlistKeyword, creatorKeyword), playlistKeyword, creatorKeyword);
 		}
 		else
 		{
-			response += WebSearch.songListing(exchange, results);
+			//response += WebSearch.songListing(exchange, results);
 			//Again, replace above with below
-			//response += WebSearch.songListing(exchange, getResults());
+			response += WebSearch.songListing(exchange, view.getPlaylistSongs(playlistKeyword, creatorKeyword));
 		}
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";

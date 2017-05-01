@@ -7,6 +7,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
+import java.sql.*;
 
 public class MuzikrWeb
 {
@@ -40,6 +41,21 @@ public class MuzikrWeb
 		loginSemaphore = new Semaphore(1, true);
 		sessionIds = new ArrayList<Integer>();
 		loginUsernames = new ArrayList<String>();
+
+		try
+		{
+			MuzikrDB.init();
+		}
+		catch(ClassNotFoundException e)
+		{
+			System.out.println("Error initializing database (class not found)");
+			return;
+		}
+		catch(SQLException e)
+		{
+			System.out.println("Error initializing database (sql exception)");
+			return;
+		}
 
 		server.createContext("/login", new WebLogin());
 		server.createContext("/logout", new WebLogout());
