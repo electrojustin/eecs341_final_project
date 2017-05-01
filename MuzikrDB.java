@@ -8,17 +8,6 @@ public class MuzikrDB
 	public static void main(String[] args) throws ClassNotFoundException, SQLException
 	{
 		init();
-		ResultSet rs = getUsers();
-		int cols = rs.getMetaData().getColumnCount();
-		while(rs.next())
-		{
-			for(int i=1; i<=cols; i++)
-			{
-				if (i > 1) System.out.print(",  ");
-				System.out.print(rs.getString(i));
-			}
-			System.out.println();
-		}
 	}
 
 	public static void init() throws ClassNotFoundException, SQLException
@@ -30,8 +19,9 @@ public class MuzikrDB
 
 	private static boolean isValidLogin(String user, String pass) throws SQLException
 	{
-		String loginQuery = "select username, passwordSalt, passwordHash from User where username = 
-?";
+		String loginQuery = "select username, passwordSalt, passwordHash " +
+				    "from User where username = ?";
+
 		PreparedStatement s = connection.prepareStatement(loginQuery);
 		s.setString(1, user);
 		ResultSet result = s.executeQuery();
@@ -41,6 +31,12 @@ public class MuzikrDB
 		// Add actual hash		
 
 		return true;
+	}
+
+	public static ResultSet rawQuery(String query) throws SQLException
+	{
+		Statement s = connection.createStatement();
+		return s.executeQuery(query);
 	}
 
 }

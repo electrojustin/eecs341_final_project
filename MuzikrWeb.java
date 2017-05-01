@@ -35,6 +35,8 @@ public class MuzikrWeb
 
 	public static void main (String[] args) throws IOException
 	{
+		MuzikrDB.init();
+		
 		HttpServer server = HttpServer.create(new InetSocketAddress(80), 0);
 
 		loginSemaphore = new Semaphore(1, true);

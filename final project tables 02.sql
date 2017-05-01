@@ -75,12 +75,7 @@ CREATE TABLE IF NOT EXISTS `muzikr`.`Label` (
   `presidentName` VARCHAR(45) NULL,
   `presidentUsername` VARCHAR(45) NULL,
   PRIMARY KEY (`labelName`),
-  INDEX `presidentUsername_idx` (`presidentUsername` ASC),
-  CONSTRAINT `presidentUsername`
-    FOREIGN KEY (`presidentUsername`)
-    REFERENCES `muzikr`.`User` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  INDEX `presidentUsername_idx` (`presidentUsername` ASC))
 ENGINE = InnoDB;
 
 
