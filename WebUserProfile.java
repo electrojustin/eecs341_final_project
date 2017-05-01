@@ -28,6 +28,16 @@ public class WebUserProfile implements HttpHandler
 		else
 			profileUsername = parsedRequest.get(1);
 
+		if (profileUsername == null)
+		{
+			response = "<html>Error: invalid search key ";
+			response += " <br /> <a href=\"/home\">homepage</a></html>";
+			exchange.sendResponseHeaders(200, response.length());
+			output.write(response.getBytes());
+			output.close();
+			return;
+		}
+
 		//Implement me
 		//profile = getProfile();
 		profile = new UserProfile();
@@ -68,6 +78,12 @@ public class WebUserProfile implements HttpHandler
 		{
 			response += "<br /><h4>Songs in common: </h4>\n";
 			response += WebSearch.songListing(exchange, profile.commonSongs);
+		}
+
+		if (username != null) //&& userIsArtist) Implement me
+		{
+			response += "<br /><br />\n";
+			response += "<a href=\"/artistportal\">Artist Portal</a>\n";
 		}
 
 		response += "<br /><br />\n";

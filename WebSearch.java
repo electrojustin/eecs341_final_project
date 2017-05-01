@@ -50,7 +50,7 @@ public class WebSearch implements HttpHandler
 					response += result[0];
 					response += "&albumname=";
 					response += result[1];
-					response += "\">Download</a></td>\n";
+					response += "\" download>Download</a></td>\n";
 				}
 				else
 				{

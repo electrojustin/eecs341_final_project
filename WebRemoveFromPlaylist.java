@@ -19,7 +19,7 @@ public class WebRemoveFromPlaylist implements HttpHandler
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
 		{
-			if (parsedRequest.get(i).equals("playlistname"))
+			if (parsedRequest.get(i).equals("playlist"))
 				playlistKeyword = parsedRequest.get(i+1);
 			else if (parsedRequest.get(i).equals("creator"))
 				creatorKeyword = parsedRequest.get(i+1);
