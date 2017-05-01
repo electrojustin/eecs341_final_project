@@ -15,6 +15,7 @@ public class WebRemoveFromPlaylist implements HttpHandler
 		String songKeyword = null;
 		String albumKeyword = null;
 		OutputStream output = exchange.getResponseBody();
+		RemoveFromPlaylist remover = new RemoveFromPlaylist();
 		int i;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -42,7 +43,7 @@ public class WebRemoveFromPlaylist implements HttpHandler
 		if (playlistKeyword == null || creatorKeyword == null
 		    || songKeyword == null || albumKeyword == null)
 		{
-			response = "<html>Error: invalid search key ";
+			response = "<html>Error: all forms are required ";
 			response += " <br /> <a href=\"/home\">homepage</a></html>";
 			exchange.sendResponseHeaders(200, response.length());
 			output.write(response.getBytes());
@@ -50,7 +51,7 @@ public class WebRemoveFromPlaylist implements HttpHandler
 			return;
 		}
 
-		//Add the actual database stuff here
+		remover.remove(playlistKeyword, creatorKeyword, songKeyword, albumKeyword);
 
 		response = "<html>Song was successfully removed from playlist\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";

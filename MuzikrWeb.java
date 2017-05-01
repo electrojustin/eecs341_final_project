@@ -76,6 +76,7 @@ public class MuzikrWeb
 		server.createContext("/newalbum", new WebNewAlbum());
 		server.createContext("/signup", new WebSignUp());
 		server.createContext("/createuser", new WebCreateUser());
+		server.createContext("/createplaylist", new WebCreatePlaylist());
 		server.start(); 
 	}
 }

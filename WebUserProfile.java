@@ -94,6 +94,12 @@ public class WebUserProfile implements HttpHandler
 				response += "<br /><br />\n";
 				response += "<a href=\"/artistportal\">Artist Portal</a>\n";
 			}
+
+			response += "<br /><br />\n";
+			response += "<form action=\"/createplaylist\">\n";
+			response += "Create a new playlist with this name:\n";
+			response += "<input type=\"text\" name=\"playlistname\">\n";
+			response += "<br /><input type=\"submit\" value=\"Create\">\n";
 		}
 
 		response += "<br /><br />\n";
