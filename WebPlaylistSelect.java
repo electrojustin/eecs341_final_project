@@ -14,6 +14,7 @@ public class WebPlaylistSelect implements HttpHandler
 		String songName = null;
 		String albumName = null;
 		String addUrl = "/addtoplaylist?";
+		PlaylistSelect selector = new PlaylistSelect();
 		int i;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -51,16 +52,16 @@ public class WebPlaylistSelect implements HttpHandler
 
 		response = "<html><h3>Select a playlist to add to</h3>\n";
 		response += " <br />\n";
-		ArrayList<String[]> results = new ArrayList<String[]>();
+		/*ArrayList<String[]> results = new ArrayList<String[]>();
 		String[] result1 = new String[4];
 		result1 [0] = "MyFavSongs";
 		result1 [1] = "testUser";
 		result1 [2] = "23";
 		result1 [3] = "120";
 		results.add(result1);
-		response += WebPlaylist.playlistListing(results, "Add To Playlist", "Add", addUrl);
+		response += WebPlaylist.playlistListing(results, "Add To Playlist", "Add", addUrl);*/
 		//Replace the above with the below once we have actual database results
-		//response += playlistListing(getResults(), "Add To Playlist", "Add", "/addtoplaylist?");
+		response += WebPlaylist.playlistListing(selector.getSelections(WebLogin.getUsername(exchange)), "Add To Playlist", "Add", addUrl);
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";
 
