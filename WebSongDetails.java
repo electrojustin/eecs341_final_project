@@ -44,9 +44,11 @@ public class WebSongDetails implements HttpHandler
 			return;
 		}
 
-		//To implement
-		//details = getDetails();
-		details = new SongDetail();
+		details = new SongDetail(songKeyword, albumKeyword);
+		details.getLength();
+		details.getArtists();
+		details.getProducerInfo();
+		/*details = new SongDetail();
 		details.name = "Foo";
 		details.album = "Bar";
 		details.artists = new String[1];
@@ -54,7 +56,7 @@ public class WebSongDetails implements HttpHandler
 		details.producerName = "Biz";
 		details.producerAddress = "123 Song Lane";
 		details.producerUsername = null;
-		details.songLength = 200;
+		details.songLength = 200;*/
 
 		if (details == null)
 		{
@@ -80,7 +82,7 @@ public class WebSongDetails implements HttpHandler
 		if (details.producerUsername != null)
 			response += "<br />Producer username: " + details.producerUsername + "\n";
 		response += "<br />Producer address: " + details.producerAddress + "\n";
-		response += "<br />Song length (seconds): " + details.songLength + "\n";
+		response += "<br />Song length (minutes): " + details.songLength + "\n";
 
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";

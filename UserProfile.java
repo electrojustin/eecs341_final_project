@@ -109,7 +109,6 @@ public class UserProfile
 
 			commonSongs = ret;
 
-			System.out.println("there3");
 		}
 		catch (SQLException e)
 		{
