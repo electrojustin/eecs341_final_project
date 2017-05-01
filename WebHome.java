@@ -38,6 +38,8 @@ public class WebHome implements HttpHandler
 		response += " <br /><input type=\"text\" name=\"song\">\n";
 		response += " <br />Search by artist: \n";
 		response += " <br /><input type=\"text\" name=\"artist\">\n";
+		response += " <br />Search by album: \n";
+		response += " <br /><input type=\"text\" name=\"album\">\n";
 		response += " <br />Search by producer: \n";
 		response += " <br /><input type=\"text\" name=\"producer\">\n";
 		if (isLoggedIn)
