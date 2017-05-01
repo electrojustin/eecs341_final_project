@@ -8,21 +8,15 @@ public class ViewPlaylist
 		try
 		{
 			String queryString;
-			PreparedStatement query;
-			Connection connection = MuzikrDB.getConnection();
 			ArrayList<String[]> ret = new ArrayList<String[]>();
 			ResultSet queryResult;
 
 			queryString =  "SELECT songName, albumName\n";
 			queryString += "FROM Compiles\n";
-			queryString += "WHERE playlistName = ?";
-			queryString += "  AND username = ?";
+			queryString += "WHERE playlistName = \"" + playlistName + "\"\n";
+			queryString += "  AND username = \"" + username + "\"";
 
-			query = connection.prepareStatement(queryString);
-			query.setString(1, playlistName);
-			query.setString(2, username);
-
-			queryResult = query.executeQuery();
+			queryResult = MuzikrDB.rawQuery(queryString);
 
 			while (queryResult.next())
 			{

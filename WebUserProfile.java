@@ -40,7 +40,7 @@ public class WebUserProfile implements HttpHandler
 
 		//Implement me
 		//profile = getProfile();
-		profile = new UserProfile();
+		/*profile = new UserProfile();
 		profile.username = "testUser";
 		profile.numSongs = 42;
 		profile.playlists = new ArrayList<String[]>();
@@ -54,7 +54,11 @@ public class WebUserProfile implements HttpHandler
 		String[] song1 = new String[2];
 		song1 [0] = "Never Gonna Give You Up";
 		song1 [1] = "Foo Bar";
-		profile.commonSongs.add(song1);
+		profile.commonSongs.add(song1);*/
+
+		profile = new UserProfile(profileUsername);
+		profile.getNumSongs();
+		profile.getPlaylists();
 
 		if (profile == null)
 		{
@@ -76,14 +80,20 @@ public class WebUserProfile implements HttpHandler
 
 		if (username != null && !profileUsername.equals(username))
 		{
+			profile.getCommonSongs(username);
+
 			response += "<br /><h4>Songs in common: </h4>\n";
 			response += WebSearch.songListing(exchange, profile.commonSongs);
 		}
-
-		if (username != null) //&& userIsArtist) Implement me
+		else if (username != null)
 		{
-			response += "<br /><br />\n";
-			response += "<a href=\"/artistportal\">Artist Portal</a>\n";
+			profile.checkArtist();
+
+			if (profile.isArtist)
+			{
+				response += "<br /><br />\n";
+				response += "<a href=\"/artistportal\">Artist Portal</a>\n";
+			}
 		}
 
 		response += "<br /><br />\n";

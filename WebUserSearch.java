@@ -13,6 +13,7 @@ public class WebUserSearch implements HttpHandler
 		String response;
 		OutputStream output = exchange.getResponseBody();
 		ArrayList<String> users;
+		UserSearch view = new UserSearch();
 
 		if (parsedRequest.size() != 2 || !parsedRequest.get(0).equals("username"))
 		{
@@ -26,10 +27,9 @@ public class WebUserSearch implements HttpHandler
 		else
 			userKeyword = parsedRequest.get(1);
 
-		//Implement me
-		//users = getUsernames();
-		users = new ArrayList<String>();
-		users.add("testUser");
+		users = view.searchUsers(userKeyword);
+		//users = new ArrayList<String>();
+		//users.add("testUser");
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";
