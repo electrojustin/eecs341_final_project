@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.Random;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javax.xml.bind.DatatypeConverter;
 
 public class WebCreateUser implements HttpHandler
 {
@@ -61,7 +62,7 @@ public class WebCreateUser implements HttpHandler
 		try
 		{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			hashedPass = new String(digest.digest(saltedPass.getBytes()));
+			hashedPass = DatatypeConverter.printHexBinary(digest.digest(saltedPass.getBytes()));
 		}
 		catch (NoSuchAlgorithmException e)
 		{

@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javax.xml.bind.DatatypeConverter;
 
 public class MuzikrDB
 {
@@ -33,7 +34,7 @@ public class MuzikrDB
 		try
 		{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			hashedPass = new String(digest.digest(saltedPass.getBytes()));
+			hashedPass = DatatypeConverter.printHexBinary(digest.digest(saltedPass.getBytes()));
 		}
 		catch (NoSuchAlgorithmException e)
 		{
