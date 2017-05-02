@@ -3,6 +3,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import java.sql.*;
 
 public class WebAddToPlaylist implements HttpHandler
 {
@@ -50,13 +51,21 @@ public class WebAddToPlaylist implements HttpHandler
 			return;
 		}
 
-		String query = "INSERT INTO Compiles VALUES (";
-		query += playlistKeyword + ", ";
-		query += creatorKeyword + ", ";
-		query += songKeyword + ", ";
-		query += albumKeyword + ")";
+		try
+		{
+			String query = "INSERT INTO Compiles VALUES (";
+			query += "\"" + playlistKeyword + "\", ";
+			query += "\"" + creatorKeyword + "\", ";
+			query += "\"" + songKeyword + "\", ";
+			query += "\"" + albumKeyword + "\")";
 
-		MuzikrDB.rawQuery(query);
+			MuzikrDB.rawQuery(query);
+		}
+		catch (SQLException e)
+		{
+			System.out.println("SQL Error");
+			return;
+		}
 
 		response = "<html>Song was successfully added to playlist\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";

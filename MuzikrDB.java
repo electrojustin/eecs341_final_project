@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MuzikrDB
 {
@@ -17,7 +18,7 @@ public class MuzikrDB
 		return connection;
 	}
 
-	private static boolean isValidLogin(String user, String pass) throws SQLException
+	public static boolean isValidLogin(String user, String pass) throws SQLException
 	{
 		String loginQuery = "select username, passwordSalt, passwordHash " +
 				    "from User where username = ?";
@@ -27,9 +28,17 @@ public class MuzikrDB
 		ResultSet result = s.executeQuery();
 		result.next();
 		String saltedPass = pass + result.getString("passwordSalt");
+		String hashedPass = null;
 
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		String hashedPass = new String(digest.digest(saltedPass.getBytes()));
+		try
+		{
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			hashedPass = new String(digest.digest(saltedPass.getBytes()));
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			System.out.println("Error: no support for SHA-256");
+		}
 
 		return hashedPass.equals(result.getString("passwordHash"));
 	}

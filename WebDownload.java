@@ -3,6 +3,7 @@ import java.io.OutputStream;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class WebDownload implements HttpHandler
 {
@@ -17,7 +18,37 @@ public class WebDownload implements HttpHandler
 			if (parsedRequest.get(0).equals("songname") && parsedRequest.get(2).equals("albumname"))
 			{
 				file = null;
-				//file = getFile(); //More placeholder code
+
+				try
+				{
+					String queryString;
+					ResultSet queryResult;
+
+					queryString =  "SELECT s.file\n";
+					queryString += "FROM Song s, Owns o\n";
+					queryString += "WHERE s.songName = \"" + parsedRequest.get(1) + "\"\n";
+					queryString += "  AND s.albumName = \"" + parsedRequest.get(3) + "\"\n";
+					queryString += "  AND s.songName = o.songName\n";
+					queryString += "  AND s.albumName = o.albumName\n";
+					queryString += "  AND o.username = \"" + WebLogin.getUsername(exchange) + "\"";
+
+					queryResult = MuzikrDB.rawQuery(queryString);
+
+					if (queryResult.next())
+						file = queryResult.getBytes(1);
+					else
+						file = null;
+						
+				}
+				catch (SQLException e)
+				{	
+					String response = "<html>SQL Error when processing download";
+					response += " <br /><a href=\"/home\">homepage</a></html>";
+					exchange.sendResponseHeaders(200, response.length());
+					output.write(response.getBytes());
+					output.close();	
+				}
+
 				if (file == null)
 				{
 					String response = "<html>Error: you do not own this song";

@@ -4,6 +4,7 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class WebLogin implements HttpHandler
 {
@@ -76,28 +77,36 @@ public class WebLogin implements HttpHandler
 		{
 			String user = parsedRequest.get(1);
 			String pass = parsedRequest.get(3);
-			if (MuzikrDB.isValidLogin(user, pass))
+
+			try
 			{
-				if (isLoggedIn(exchange))
+				if (MuzikrDB.isValidLogin(user, pass))
 				{
-					String response = "<html>Error: already logged in";
+					if (isLoggedIn(exchange))
+					{
+						String response = "<html>Error: already logged in";
+						response += " <br /> <a href=\"/home\">homepage</a></html>";
+						OutputStream output = exchange.getResponseBody();
+						exchange.sendResponseHeaders(200, response.length());
+						output.write(response.getBytes());
+						output.close();
+					}
+					else
+						login(exchange, parsedRequest.get(1));
+				}
+				else
+				{
+					String response = "<html>Error: invalid username or password";
 					response += " <br /> <a href=\"/home\">homepage</a></html>";
 					OutputStream output = exchange.getResponseBody();
 					exchange.sendResponseHeaders(200, response.length());
 					output.write(response.getBytes());
 					output.close();
 				}
-				else
-					login(exchange, parsedRequest.get(1));
 			}
-			else
+			catch (SQLException e)
 			{
-				String response = "<html>Error: invalid username or password";
-				response += " <br /> <a href=\"/home\">homepage</a></html>";
-				OutputStream output = exchange.getResponseBody();
-				exchange.sendResponseHeaders(200, response.length());
-				output.write(response.getBytes());
-				output.close();
+				System.out.println("SQL Error");
 			}
 		}
 		else

@@ -3,6 +3,10 @@ import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 import java.util.ArrayList;
+import java.sql.*;
+import java.util.Random;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class WebCreateUser implements HttpHandler
 {
@@ -52,17 +56,32 @@ public class WebCreateUser implements HttpHandler
 		int salt = r.nextInt();
 
 		String saltedPass = password + salt;
+		String hashedPass = null;
 
-		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-		String hashedPass = new String(digest.digest(saltedPass.getBytes()));
+		try
+		{
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			hashedPass = new String(digest.digest(saltedPass.getBytes()));
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			System.out.println("Error: no support for SHA-256");
+		}
 
-		String query = "INSERT INTO User VALUES (";
-		query += username + ", ";
-		query += hashedPass + ", ";
-		query += salt + ", ";
-		query += email + ")";
+		try
+		{
+			String query = "INSERT INTO User VALUES (";
+			query += "\"" + username + "\", ";
+			query += "\"" + hashedPass + "\", ";
+			query += "\"" + salt + "\", ";
+			query += "\"" + email + "\")";
 		
-		MuzikrDB.rawQuery(query);
+			MuzikrDB.rawQuery(query);
+		}
+		catch (SQLException e)
+		{
+			System.out.println("SQL Error");
+		}
 
 		response = "<html>Successfully created user!\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";

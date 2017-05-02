@@ -3,10 +3,11 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import java.sql.*;
 
 public class WebArtistProfile implements HttpHandler
 {
-	public void handle (HttpExchange exchange) throws IOException, SQLException
+	public void handle (HttpExchange exchange) throws IOException
 	{	
 		String response;
 		String username = WebLogin.getUsername(exchange);
@@ -74,57 +75,64 @@ public class WebArtistProfile implements HttpHandler
 
 	}
 
-	public static ArtistProfile getProfile(String user) throws SQLException
+	public static ArtistProfile getProfile(String user)
 	{
-		String artistQuery = "SELECT artistID, artistName " +
-				"FROM Artist WHERE username = " + user;
-		ResultSet rs1 = MuzikrDB.rawQuery(artistQuery);
-
-		if(!rs1.next())
-			return null;
-
-		ArtistProfile profile = new ArtistProfile();
-		profile.username = user;
-		profile.name = rs1.getString("artistName");
-		
-		int artistID = rs1.getInt("artistID");
-
-		String numMadeQuery = "SELECT COUNT(*) " +
-				"FROM Creates c " +
-				"WHERE c.artistID = " + artistID;
-		ResultSet rs2 = MuzikrDB.rawQuery(numMadeQuery);
-		
-		rs2.next();
-		profile.numSongsMade = rs2.getInt(1);
-
-		String buyQuery = "SELECT o.songName, o.albumName, COUNT(*) " +
-				"FROM Creates c, Owns o " +
-				"WHERE c.artistID = " + artist + " " +
-				"AND o.songName = c.songName " + 
-				"AND o.albumName = c.albumName " +
-				"GROUP BY o.songName, o.albumName" ;
-		ResultSet rs3 = MuzikrDB.rawQuery(buyQuery);
-
-		String popularSong;
-		int totalBuys = 0;
-		int maxBuys = 0;
-
-		while (rs3.next())
+		try
 		{
-			int buys = rs3.getInt(3);
-			totalBuys += buys;
-			if (buys > maxBuys)
+			String artistQuery = "SELECT artistID, artistName " +
+					"FROM Artist WHERE username = \"" + user + "\"";
+			ResultSet rs1 = MuzikrDB.rawQuery(artistQuery);
+
+			if(!rs1.next())
+				return null;
+
+			ArtistProfile profile = new ArtistProfile();
+			profile.username = user;
+			profile.name = rs1.getString("artistName");
+		
+			int artistID = rs1.getInt("artistID");
+
+			String numMadeQuery = "SELECT COUNT(*) " +
+					"FROM Creates c " +
+					"WHERE c.artistID = " + artistID;
+			ResultSet rs2 = MuzikrDB.rawQuery(numMadeQuery);
+		
+			rs2.next();
+			profile.numSongsMade = rs2.getInt(1);
+
+			String buyQuery = "SELECT o.songName, o.albumName, COUNT(*) " +
+					"FROM Creates c, Owns o " +
+					"WHERE c.artistID = \"" + artistID + "\" " +
+					"AND o.songName = c.songName " + 
+					"AND o.albumName = c.albumName " +
+					"GROUP BY o.songName, o.albumName" ;
+			ResultSet rs3 = MuzikrDB.rawQuery(buyQuery);
+
+			String popularSong = null;
+			int totalBuys = 0;
+			int maxBuys = 0;
+
+			while (rs3.next())
 			{
-				maxBuys = buys;
-				popularSong = rs3.getString(1);
+				int buys = rs3.getInt(3);
+				totalBuys += buys;
+				if (buys > maxBuys)
+				{
+					maxBuys = buys;
+					popularSong = rs3.getString(1);
+				}
 			}
-		}
 
-		profile.numBuys = totalBuys;
-		profile.mostPopular = popularSong;
+			profile.numBuys = totalBuys;
+			profile.mostPopular = popularSong;
 	
-		return profile;
-
+			return profile;
+		}
+		catch (SQLException e)
+		{
+			System.out.println("SQL Error");
+			return null;
+		}
 	}
 
 }
