@@ -89,7 +89,7 @@ CREATE TABLE `Compiles` (
 
 LOCK TABLES `Compiles` WRITE;
 /*!40000 ALTER TABLE `Compiles` DISABLE KEYS */;
-INSERT INTO `Compiles` VALUES ('HotTunes','AvgJoe','Mrs. Robinson','Bookends'),('Jams','Bob','Tell Me Why','Fearless'),('Jams','Bob','Thinking Out Loud','X'),('Musica!!','Kim','A Whole New World','Aladdin'),('Musica!!','Kim','All Too Well','Red'),('Musica!!','Kim','Change','Fearless'),('Musica!!','Kim','Fifteen','Fearless'),('Musica!!','Kim','Out Of The Woods','1989'),('MyMusic','T-Swift','All Too Well ','Red'),('MyMusic','T-Swift','Change','Fearless'),('MyMusic','T-Swift','Fifteen','Fearless'),('MyMusic','T-Swift','Mean','Speak Now'),('MyMusic','T-Swift','Out Of The Woods','1989'),('Playlist','Heather','All Too Well','Red'),('Playlist','Heather','Fifteen','Fearless'),('Playlist','Heather','Mean','Speak Now'),('Playlist','Heather','Out Of The Woods','1989');
+INSERT INTO `Compiles` VALUES ('HotTunes','AvgJoe','Mrs. Robinson','Bookends'),('Jams','Bob','Tell Me Why','Fearless'),('Jams','Bob','Thinking Out Loud','X'),('Musica!!','Kim','A Whole New World','Aladdin'),('Musica!!','Kim','All Too Well','Red'),('Musica!!','Kim','Change','Fearless'),('Musica!!','Kim','Fifteen','Fearless'),('Musica!!','Kim','Mean','Speak Now'),('Musica!!','Kim','Out Of The Woods','1989'),('MyMusic','T-Swift','All Too Well ','Red'),('MyMusic','T-Swift','Change','Fearless'),('MyMusic','T-Swift','Fifteen','Fearless'),('MyMusic','T-Swift','Mean','Speak Now'),('MyMusic','T-Swift','Out Of The Woods','1989'),('Playlist','Heather','All Too Well','Red'),('Playlist','Heather','Fifteen','Fearless'),('Playlist','Heather','Mean','Speak Now'),('Playlist','Heather','Out Of The Woods','1989'),('testPlaylist','Kim','A Whole New World','Aladdin'),('testPlaylist','Kim','All Too Well','Red');
 /*!40000 ALTER TABLE `Compiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +166,7 @@ CREATE TABLE `Owns` (
 
 LOCK TABLES `Owns` WRITE;
 /*!40000 ALTER TABLE `Owns` DISABLE KEYS */;
-INSERT INTO `Owns` VALUES ('Bob','Tell Me Why','Fearless'),('Bob','Thinking Out Loud','X'),('Heather','All Too Well','Red'),('Heather','Fifteen','Fearless'),('Heather','Mean','Speak Now'),('Heather','Out of the Woods','1989'),('Kim','A Whole New World','Aladdin'),('Kim','All Too Well','Red'),('Kim','Change','Fearless'),('Kim','Fifteen','Fearless'),('Kim','Out of the Woods','1989');
+INSERT INTO `Owns` VALUES ('Bob','Tell Me Why','Fearless'),('Bob','Thinking Out Loud','X'),('Heather','All Too Well','Red'),('Heather','Fifteen','Fearless'),('Heather','Mean','Speak Now'),('Heather','Out of the Woods','1989'),('Kim','A Whole New World','Aladdin'),('Kim','All Too Well','Red'),('Kim','Change','Fearless'),('Kim','Fifteen','Fearless'),('Kim','Mean','Speak Now'),('Kim','Out of the Woods','1989'),('Kim','testSong','Fearless');
 /*!40000 ALTER TABLE `Owns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +193,7 @@ CREATE TABLE `Playlist` (
 
 LOCK TABLES `Playlist` WRITE;
 /*!40000 ALTER TABLE `Playlist` DISABLE KEYS */;
-INSERT INTO `Playlist` VALUES ('HotTunes','AvgJoe','102'),('Jams','Bob','93'),('Musica!!','Kim','34'),('MyMusic','T-Swift','182'),('Playlist','Heather','56'),('testPlaylist','Kim','0');
+INSERT INTO `Playlist` VALUES ('HotTunes','AvgJoe','102'),('Jams','Bob','93'),('Musica!!','Kim','34'),('MyMusic','T-Swift','182'),('Playlist','Heather','56'),('testPlaylist','Kim','0'),('TestPlaylist2','T-Swift','0');
 /*!40000 ALTER TABLE `Playlist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,9 +232,9 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
   `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `passwordHash` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `passwordSalt` int(11) DEFAULT NULL,
   `email` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `passwordHash` varchar(66) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -245,7 +245,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES ('alann',NULL,NULL,'alann@project.com'),('AvgJoe',NULL,NULL,'averageJoe@project.com'),('BillyBob',NULL,NULL,'billybob@project.com'),('Bob',NULL,NULL,'bob@project.com'),('eddShee',NULL,NULL,'eddshee@project.com'),('Heather',NULL,NULL,'heather@project.com'),('Kim',NULL,NULL,'kim@project.com'),('MagicWalt',NULL,NULL,'magicWalt@project.com'),('MsMarilyn',NULL,NULL,'msMarilyn@project.com'),('Nickelback',NULL,NULL,'nickelback@project.com'),('PointerSistas',NULL,NULL,'pointersistas@project.com'),('Scottie',NULL,NULL,'scott@project.com'),('sim&gar',NULL,NULL,'simonandgarfunkel@project.com'),('T-Swift',NULL,NULL,'tswift@project.com'),('TheFrankster',NULL,NULL,'frank@project.com'),('VanHalen',NULL,NULL,'vanhalen@project.com');
+INSERT INTO `User` VALUES ('alann',173344348,'alann@project.com','5E1E8BD376FC93FF35D69186E0A5236F519A45B1CA9FF172E67DE25E89F80A0D'),('AvgJoe',2143506781,'averageJoe@project.com','3960C372C7B0E50AAE2BE43CAC43586EF7A7FF3552953A63970ADA8F953DA7D9'),('BillyBob',1335692315,'billybob@project.com','3FD59E7E410BECF546E1D1CDF5829C42538268EB3CDDFA0E768AC5BC75A41716'),('Bob',1346336761,'bob@project.com','94BAB38E3B6A686DC3F3BF221407A02E8E2483120E1C25F828BE8FE27635BFD4'),('eddShee',804645126,'eddshee@project.com','92E137765D17E5C6B4DA9FDE52F299BFF6CF1D655586A519BC1B7382D38D4EBA'),('Heather',1693781862,'heather@project.com','203183553FBA8435FB49D9C490585236549C6B4EB2A5BC77EB146DA53298EEF7'),('Kim',1301459612,'kim@project.com','4AE65CBC479E857076D49A474360F6D856251DB544101755821B119018BE90D4'),('MagicWalt',1902920230,'magicWalt@project.com','7E913F0DA9CBCC54D480EF128A4A23B82B752F6A9DF4F3FB7E2ACED5FDBAFDC5'),('MsMarilyn',1224772386,'msMarilyn@project.com','DDE961DF09A180A95F78AF4D9594A16F1837F4CA33F852024C711951431F887D'),('Nickelback',167184804,'nickelback@project.com','B13187DC363F3CFD16C0E6292B48427DAA397A01767E883C0BA109E1CB0E5C63'),('PointerSistas',278876439,'pointersistas@project.com','EF63AD1C93E50FCCC831BF6083EE63D7D869B7140299327C48498AD51FA7E1C5'),('Scottie',1589320742,'scott@project.com','AB1889F9CE282C5E7358CEE97AE152C7426CB7C5560DE587A93F972E6593385F'),('sim&gar',771885465,'simonandgarfunkel@project.com','B93281578E4754B6E0117238EDA9A68A740625DE0494A1CDE45C4E08C554091C'),('T-Swift',1654516913,'tswift@project.com','E7262880D2D8F0B4248E6911E8AC95C82FB7AD6F5708B5C84390B5E7B04D0449'),('TheFrankster',857250540,'frank@project.com','17CCD2902C91D48D9479A873B0BE01AFEAA94F208EC12AAF50853B084826FDD3'),('VanHalen',743281976,'vanhalen@project.com','1E7D4AD6C27B3561D70EEC8958AAB63EB950DEFC8F614B4740E8CEEB17AEF76F');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -258,4 +258,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-01 21:09:51
+-- Dump completed on 2017-05-01 23:37:32
