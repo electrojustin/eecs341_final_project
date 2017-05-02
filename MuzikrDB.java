@@ -1,3 +1,5 @@
+//Helper file for database functions like login, connecting, simple queries, etc
+
 import java.sql.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

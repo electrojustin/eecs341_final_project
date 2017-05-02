@@ -1,3 +1,5 @@
+//Backend for the song search
+
 import java.util.ArrayList;
 import java.sql.*;
 

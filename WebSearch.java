@@ -1,3 +1,5 @@
+//Front end to display the results of a song search
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.sql.*;
 
 public class WebSearch implements HttpHandler
 {
+	//Helper functions that display a table of songs
 	public static String songListing (HttpExchange exchange, ArrayList<String[]> results)
 	{
 		return songListing(exchange, results, null, null);
@@ -162,12 +165,6 @@ public class WebSearch implements HttpHandler
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";
-		/*String[] result1 = new String[2];
-		result1 [0] = "Never Gonna Give You Up";
-		result1 [1] = "Foo Bar";
-		ArrayList<String[]> results = new ArrayList<String[]>();
-		results.add(result1);
-		response += songListing(exchange, results);*/
 		if (onlyShowUser)
 			username = WebLogin.getUsername(exchange);
 		response += songListing(exchange, searcher.search(songKeyword, artistKeyword, albumKeyword, producerKeyword, username));

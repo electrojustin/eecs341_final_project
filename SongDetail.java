@@ -1,3 +1,5 @@
+//Backend for getting data on a song
+
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -17,6 +19,7 @@ public class SongDetail
 		this.album = album;
 	}
 
+	//Gets the length of the song
 	public void getLength()
 	{
 		try
@@ -43,6 +46,7 @@ public class SongDetail
 		}
 	}
 
+	//Gets the real names of all artists that helped make the song
 	public void getArtists()
 	{	
 		try
@@ -71,6 +75,7 @@ public class SongDetail
 		}
 	}
 
+	//Gets information about the producer for the song
 	public void getProducerInfo()
 	{
 		try

@@ -1,3 +1,5 @@
+//Simple web page to log the user out
+
 import java.io.OutputStream;
 import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;

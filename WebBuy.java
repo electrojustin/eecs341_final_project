@@ -1,3 +1,5 @@
+//Simple web page for buying a song
+
 import java.io.IOException;
 import java.io.OutputStream;
 import com.sun.net.httpserver.HttpHandler;

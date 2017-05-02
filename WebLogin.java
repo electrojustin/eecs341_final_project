@@ -1,3 +1,5 @@
+//Simple web page for attempting a login
+
 import java.util.Random;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import java.sql.*;
 
 public class WebLogin implements HttpHandler
 {
+	//Helper function to check if a user is logged in
 	public static boolean isLoggedIn (HttpExchange exchange)
 	{
 		String userSessionId = exchange.getRequestHeaders().getFirst("Cookie");
@@ -18,6 +21,7 @@ public class WebLogin implements HttpHandler
 			return true;
 	}
 
+	//Gets the username of the currently logged in user, or returns null if no one is logged in on this computer
 	public static String getUsername (HttpExchange exchange)
 	{
 		String userSessionId = exchange.getRequestHeaders().getFirst("Cookie");
@@ -35,6 +39,7 @@ public class WebLogin implements HttpHandler
 		return null;
 	}
 
+	//Actually performs the login action
 	private static void login (HttpExchange exchange, String username) throws IOException
 	{
 		OutputStream output = exchange.getResponseBody();

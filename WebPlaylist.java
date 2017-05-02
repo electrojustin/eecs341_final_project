@@ -1,3 +1,5 @@
+//Displays the results of a playlist search
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -6,6 +8,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 public class WebPlaylist implements HttpHandler
 {
+	//Helper function that displays a table of playlists
 	public static String playlistListing (ArrayList<String[]> results, String fifthColumnTitle, String fifthColumn, String url)
 	{
 		String response = "<table style=\"width:75%\">\n";
@@ -74,14 +77,6 @@ public class WebPlaylist implements HttpHandler
 
 		response = "<html><h3>Playlist Search Results:</h3>\n";
 		response += " <br />\n";
-		/*String[] result1 = new String[4];
-		result1 [0] = "MyFavSongs";
-		result1 [1] = "testUser";
-		result1 [2] = "23";
-		result1 [3] = "120";
-		ArrayList<String[]> results = new ArrayList<String[]>();
-		results.add(result1);
-		response += playlistListing(results, "View Songs", "View", "/viewplaylist?");*/
 		response += playlistListing(searcher.search(playlistKeyword, creatorKeyword), "View Songs", "View", "/viewplaylist?");
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";

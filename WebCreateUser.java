@@ -1,3 +1,5 @@
+//Simple web page that creates a new user
+
 import java.io.OutputStream;
 import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;

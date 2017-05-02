@@ -1,3 +1,5 @@
+//Simple script for filling in test passwords
+
 import java.sql.*;
 import java.util.Random;
 import java.security.*;

@@ -1,3 +1,5 @@
+//Displays the results of a user search
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -28,8 +30,6 @@ public class WebUserSearch implements HttpHandler
 			userKeyword = parsedRequest.get(1);
 
 		users = view.searchUsers(userKeyword);
-		//users = new ArrayList<String>();
-		//users.add("testUser");
 
 		response = "<html><h3>Search Results:</h3>\n";
 		response += " <br />\n";

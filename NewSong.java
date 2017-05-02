@@ -1,8 +1,11 @@
+//Handles the backend for new song creation
+
 import java.sql.*;
 import javax.xml.bind.DatatypeConverter;
 
 public class NewSong
 {
+	//Handle the actual song
 	public void insertSong(String songname, String albumname, int length, String file)
 	{
 		try
@@ -25,6 +28,8 @@ public class NewSong
 			System.out.println("SQL Error");
 		}
 	}
+
+	//Create entires in the Creates table tying our uploader to the newly created song
 	public void insertCreate(String songname, String albumname, String username)
 	{
 		try

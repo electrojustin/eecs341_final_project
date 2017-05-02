@@ -1,3 +1,5 @@
+//The file that generates the home page for Muzikr
+
 import java.io.OutputStream;
 import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;

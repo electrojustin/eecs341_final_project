@@ -1,3 +1,5 @@
+//Backend for removing a song from a playlist
+
 import java.sql.*;
 
 public class RemoveFromPlaylist

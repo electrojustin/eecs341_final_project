@@ -1,3 +1,5 @@
+//Backend for getting data on a user
+
 import java.util.ArrayList;
 import java.sql.*;
 
@@ -14,6 +16,7 @@ public class UserProfile
 		this.username = username;
 	}
 
+	//Get the number of songs the user owns
 	public void getNumSongs()
 	{
 		try
@@ -39,6 +42,7 @@ public class UserProfile
 		}
 	}
 
+	//Get the playlists that the user has made
 	public void getPlaylists()
 	{
 		try
@@ -101,6 +105,7 @@ public class UserProfile
 		}
 	}
 
+	//If the profile we're viewing isn't the currently logged in user, display a comparison of what songs we both own
 	public void getCommonSongs(String sessionUsername)
 	{
 		try
@@ -139,6 +144,8 @@ public class UserProfile
 			commonSongs = null;
 		}
 	}
+
+	//Checks if the user is a registered artist
 	public void checkArtist()
 	{
 		try

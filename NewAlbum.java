@@ -1,3 +1,5 @@
+//Handles the backend for album creation
+
 import java.sql.*;
 
 public class NewAlbum

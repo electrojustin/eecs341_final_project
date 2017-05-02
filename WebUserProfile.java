@@ -1,3 +1,5 @@
+//Displays various information about a user such as number of songs owned, playlists created, and a comparison the songs they own vs the logged in user
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -37,24 +39,6 @@ public class WebUserProfile implements HttpHandler
 			output.close();
 			return;
 		}
-
-		//Implement me
-		//profile = getProfile();
-		/*profile = new UserProfile();
-		profile.username = "testUser";
-		profile.numSongs = 42;
-		profile.playlists = new ArrayList<String[]>();
-		String[] playlist1 = new String[4];
-		playlist1 [0] = "MyFavSongs";
-		playlist1 [1] = "testUser";
-		playlist1 [2] = "23";
-		playlist1 [3] = "120";
-		profile.playlists.add(playlist1);
-		profile.commonSongs = new ArrayList<String[]>();
-		String[] song1 = new String[2];
-		song1 [0] = "Never Gonna Give You Up";
-		song1 [1] = "Foo Bar";
-		profile.commonSongs.add(song1);*/
 
 		profile = new UserProfile(profileUsername);
 		profile.getNumSongs();

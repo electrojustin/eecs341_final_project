@@ -1,3 +1,5 @@
+//Displays the details for a song
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -48,15 +50,6 @@ public class WebSongDetails implements HttpHandler
 		details.getLength();
 		details.getArtists();
 		details.getProducerInfo();
-		/*details = new SongDetail();
-		details.name = "Foo";
-		details.album = "Bar";
-		details.artists = new String[1];
-		details.artists[0] = "Rick Astley";
-		details.producerName = "Biz";
-		details.producerAddress = "123 Song Lane";
-		details.producerUsername = null;
-		details.songLength = 200;*/
 
 		if (details == null)
 		{

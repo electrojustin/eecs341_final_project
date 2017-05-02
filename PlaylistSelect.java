@@ -1,3 +1,5 @@
+//Backend for displaying playlist choices when a user is adding a song to a playlist
+
 import java.util.ArrayList;
 import java.sql.*;
 

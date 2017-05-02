@@ -1,3 +1,5 @@
+//A simple description of all the data needed for the artist profile
+
 public class ArtistProfile
 {
 	public String username;

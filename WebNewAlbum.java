@@ -1,3 +1,5 @@
+//Simple web page to create a new album
+
 import java.io.IOException;
 import java.io.OutputStream;
 import com.sun.net.httpserver.HttpHandler;

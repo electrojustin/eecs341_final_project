@@ -1,3 +1,5 @@
+//Backend for searching for users
+
 import java.util.ArrayList;
 import java.sql.*;
 

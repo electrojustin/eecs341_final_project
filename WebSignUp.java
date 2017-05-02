@@ -1,3 +1,5 @@
+//Displays a sign-up page
+
 import java.io.OutputStream;
 import java.io.IOException;
 import com.sun.net.httpserver.HttpHandler;

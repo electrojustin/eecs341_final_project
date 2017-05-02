@@ -1,3 +1,5 @@
+//Main file
+
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 import java.io.OutputStream;
@@ -11,10 +13,12 @@ import java.sql.*;
 
 public class MuzikrWeb
 {
+	//These variables keep track of who is actually logged in at any given time
 	public static Semaphore loginSemaphore;
 	public static ArrayList<Integer> sessionIds;
 	public static ArrayList<String> loginUsernames;
 	
+	//Helper function for parsing the URL for key value pairs
 	public static ArrayList<String> getKeyValues (String uri)
 	{
 		ArrayList<String> ret = new ArrayList<String>();
@@ -34,6 +38,7 @@ public class MuzikrWeb
 		return ret;
 	}
 
+	//Main function from which we launch our HTTP server
 	public static void main (String[] args) throws IOException
 	{	
 		HttpServer server = HttpServer.create(new InetSocketAddress(80), 0);

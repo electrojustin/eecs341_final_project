@@ -1,3 +1,5 @@
+//Displays the songs associated with a playlist
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -47,22 +49,11 @@ public class WebViewPlaylist implements HttpHandler
 
 		response = "<html><h3>Playlist Songs:</h3>\n";
 		response += " <br />\n";
-		//String[] result1 = new String[2];
-		//result1 [0] = "Never Gonna Give You Up";
-		//result1 [1] = "Foo Bar";
-		//ArrayList<String[]> results = new ArrayList<String[]>();
-		//results.add(result1);
+
 		if (username != null && creatorKeyword.equals(username))
-		{
-			//response += WebSearch.songListing(exchange, results, playlistKeyword, creatorKeyword);
 			response += WebSearch.songListing(exchange, view.getPlaylistSongs(playlistKeyword, creatorKeyword), playlistKeyword, creatorKeyword);
-		}
 		else
-		{
-			//response += WebSearch.songListing(exchange, results);
-			//Again, replace above with below
 			response += WebSearch.songListing(exchange, view.getPlaylistSongs(playlistKeyword, creatorKeyword));
-		}
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";
 

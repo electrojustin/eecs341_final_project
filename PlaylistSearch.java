@@ -1,3 +1,5 @@
+//Backend for playlist searching functionality
+
 import java.util.ArrayList;
 import java.sql.*;
 
