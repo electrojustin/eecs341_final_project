@@ -1,14 +1,10 @@
 import java.sql.*;
+import java.security.MessageDigest;
 
 public class MuzikrDB
 {
 	
 	private static Connection connection;
-
-	public static void main(String[] args) throws ClassNotFoundException, SQLException
-	{
-		init();
-	}
 
 	public static void init() throws ClassNotFoundException, SQLException
 	{
@@ -31,10 +27,11 @@ public class MuzikrDB
 		ResultSet result = s.executeQuery();
 		result.next();
 		String saltedPass = pass + result.getString("passwordSalt");
-		// return hash(saltedPass).equals(result.getString("passwordHash"));
-		// Add actual hash		
 
-		return true;
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		String hashedPass = new String(digest.digest(saltedPass.getBytes()));
+
+		return hashedPass.equals(result.getString("passwordHash"));
 	}
 
 	public static ResultSet rawQuery(String query) throws SQLException

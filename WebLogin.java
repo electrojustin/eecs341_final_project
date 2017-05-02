@@ -74,7 +74,9 @@ public class WebLogin implements HttpHandler
 
 		if (parsedRequest.get(0).equals("username") && parsedRequest.get(2).equals("passwd") && parsedRequest.get(1) != null && parsedRequest.get(3) != null)
 		{
-			if (true)//isValidLogin()) //This function needs to be defined at the database level
+			String user = parsedRequest.get(1);
+			String pass = parsedRequest.get(3);
+			if (MuzikrDB.isValidLogin(user, pass))
 			{
 				if (isLoggedIn(exchange))
 				{

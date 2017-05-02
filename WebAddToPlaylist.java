@@ -50,7 +50,13 @@ public class WebAddToPlaylist implements HttpHandler
 			return;
 		}
 
-		//Add the actual database stuff here
+		String query = "INSERT INTO Compiles VALUES (";
+		query += playlistKeyword + ", ";
+		query += creatorKeyword + ", ";
+		query += songKeyword + ", ";
+		query += albumKeyword + ")";
+
+		MuzikrDB.rawQuery(query);
 
 		response = "<html>Song was successfully added to playlist\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";

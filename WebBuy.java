@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class WebBuy implements HttpHandler
 {
-	public void handle (HttpExchange exchange) throws IOException
+	public void handle (HttpExchange exchange) throws IOException, SQLException
 	{
 		OutputStream output = exchange.getResponseBody();
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
@@ -16,7 +16,15 @@ public class WebBuy implements HttpHandler
 		{
 			if (parsedRequest.get(0).equals("songname") && parsedRequest.get(2).equals("albumname") && parsedRequest.get(1) != null && parsedRequest.get(3) != null)
 			{
-				//Insert buying code here
+				String songName = parsedRequest.get(1);
+				String albumName = parsedRequest.get(3);
+		
+				String query = "INSERT INTO Owns VALUES (";
+				query += username + ", ";
+				query += songName + ", ";
+				query += albumName + ")";
+	
+				MuzikrDB.rawQuery(query);
 
 				String response = "<html>Thank you for your purchase!";
 				response += " <br /><a href=\"/home\">homepage</a></html>";
