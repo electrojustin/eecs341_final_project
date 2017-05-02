@@ -166,7 +166,7 @@ CREATE TABLE `Owns` (
 
 LOCK TABLES `Owns` WRITE;
 /*!40000 ALTER TABLE `Owns` DISABLE KEYS */;
-INSERT INTO `Owns` VALUES ('Bob','Tell Me Why','Fearless'),('Bob','Thinking Out Loud','X'),('Heather','All Too Well','Red'),('Heather','Fifteen','Fearless'),('Heather','Mean','Speak Now'),('Heather','Out of the Woods','1989'),('Kim','A Whole New World','Aladdin'),('Kim','All Too Well','Red'),('Kim','Change','Fearless'),('Kim','Fifteen','Fearless'),('Kim','Mean','Speak Now'),('Kim','Out of the Woods','1989'),('Kim','testSong','Fearless');
+INSERT INTO `Owns` VALUES ('Bob','Tell Me Why','Fearless'),('Bob','Thinking Out Loud','X'),('Heather','All Too Well','Red'),('Heather','Fifteen','Fearless'),('Heather','Mean','Speak Now'),('Heather','Out of the Woods','1989'),('Kim','A Whole New World','Aladdin'),('Kim','All Too Well','Red'),('Kim','Change','Fearless'),('Kim','Fifteen','Fearless'),('Kim','Mean','Speak Now'),('Kim','Out of the Woods','1989'),('Kim','testSong','Fearless'),('T-Swift','A Whole New World','Aladdin');
 /*!40000 ALTER TABLE `Owns` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +219,7 @@ CREATE TABLE `Song` (
 
 LOCK TABLES `Song` WRITE;
 /*!40000 ALTER TABLE `Song` DISABLE KEYS */;
-INSERT INTO `Song` VALUES ('A Whole New World','Aladdin',2,NULL),('Change','Fearless',4,NULL),('Fifteen','Fearless',5,NULL),('Jump','1984',4,NULL),('Jump','Breakout',4,NULL),('Mean','Speak Now',4,NULL),('Mrs. Robinson','Bookends',4,NULL),('Out Of The Woods','1989',4,NULL),('Out of the Woods','Red',5,NULL),('Photograph','All The Right Reasons',4,NULL),('Photograph','X',4,NULL),('Tell Me Why','Fearless',3,NULL),('testSong','Fearless',42,'��\r\0\n\0[\0.\0S\0h\0e\0l\0l\0C\0l\0a\0s\0s\0I\0n\0f\0o\0]\0\r\0\n\0L\0o\0c\0a\0l\0i\0z\0e\0d\0R\0e\0s\0o\0u\0r\0c\0e\0N\0a\0m\0e\0=\0@\0%\0S\0y\0s\0t\0e\0m\0R\0o\0o\0t\0%\0\\\0s\0y\0s\0t\0e\0m\03\02\0\\\0s\0h\0e\0l\0l\03\02\0.\0d\0l\0l\0,\0-\02\01\07\06\09\0\r\0\n\0I\0c\0o\0n\0R\0e\0s\0o\0u\0r\0c\0e\0=\0%\0S\0y\0s\0t\0e\0m\0R\0o\0o\0t\0%\0\\\0s\0y\0s\0t\0e\0m\03\02\0\\\0i\0m\0a\0g\0e\0r\0e\0s\0.\0d\0l\0l\0,\0-\01\08\03\0\r\0\n\0\r'),('Thinking Out Loud','X',4,NULL);
+INSERT INTO `Song` VALUES ('A Whole New World','Aladdin',2,'thisisatest'),('Change','Fearless',4,'thisisatest'),('Fifteen','Fearless',5,'thisisatest'),('Jump','1984',4,'thisisatest'),('Jump','Breakout',4,'thisisatest'),('Mean','Speak Now',4,'thisisatest'),('Mrs. Robinson','Bookends',4,'thisisatest'),('Out Of The Woods','1989',4,'thisisatest'),('Out of the Woods','Red',5,'thisisatest'),('Photograph','All The Right Reasons',4,'thisisatest'),('Photograph','X',4,'thisisatest'),('Tell Me Why','Fearless',3,'thisisatest'),('testSong','Fearless',42,'thisisatest'),('Thinking Out Loud','X',4,'thisisatest');
 /*!40000 ALTER TABLE `Song` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,4 +258,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-01 23:37:32
+-- Dump completed on 2017-05-02  0:04:20
