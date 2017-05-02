@@ -6,7 +6,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 public class WebArtistProfile implements HttpHandler
 {
-	public void handle (HttpExchange exchange) throws IOException
+	public void handle (HttpExchange exchange) throws IOException, SQLException
 	{	
 		String response;
 		String username = WebLogin.getUsername(exchange);
@@ -24,7 +24,6 @@ public class WebArtistProfile implements HttpHandler
 			return;
 		}
 
-		//Implement me
 		profile = getProfile(username);
 
 		if (profile == null)
@@ -75,7 +74,7 @@ public class WebArtistProfile implements HttpHandler
 
 	}
 
-	public static ArtistProfile getProfile(String user)
+	public static ArtistProfile getProfile(String user) throws SQLException
 	{
 		String artistQuery = "SELECT artistID, artistName " +
 				"FROM Artist WHERE username = " + user;
