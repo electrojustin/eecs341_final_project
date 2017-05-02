@@ -22,12 +22,14 @@ public class WebBuy implements HttpHandler
 		
 				try
 				{
+					Connection connection = MuzikrDB.getConnection();
+					Statement statement = connection.createStatement();
 					String query = "INSERT INTO Owns VALUES (";
 					query += "\"" + username + "\", ";
 					query += "\"" + songName + "\", ";
 					query += "\"" + albumName + "\")";
 	
-					MuzikrDB.rawQuery(query);
+					statement.executeUpdate(query);
 				}
 				catch (SQLException e)
 				{

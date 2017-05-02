@@ -3,6 +3,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import java.sql.*;
 
 public class WebSearch implements HttpHandler
 {
@@ -43,8 +44,38 @@ public class WebSearch implements HttpHandler
 
 			if (isLoggedIn)
 			{
-				if (true)
-				//if (ownSong()) //This needs to actually be added
+				boolean ownSong = false;
+
+				String queryString;
+				ResultSet queryResult;
+
+				try
+				{
+					queryString =  "SELECT count(*)\n";
+					queryString += "FROM Owns\n";
+					queryString += "WHERE username = \"" + WebLogin.getUsername(exchange) + "\"\n";
+					queryString += "  AND songName = \"" + result[0] + "\"\n";
+					queryString += "  AND albumName = \"" + result[1] + "\"";
+
+					queryResult = MuzikrDB.rawQuery(queryString);
+
+					if (queryResult.next())
+					{
+						if (queryResult.getInt(1) > 0)
+							ownSong = true;
+						else
+							ownSong = false;
+					}
+					else
+						ownSong = false;
+				}
+				catch (SQLException e)
+				{
+					System.out.println ("SQL Error");
+					return null;
+				}
+
+				if (ownSong)
 				{
 					response += "  <td><a href=\"/download?songname=";
 					response += result[0];
@@ -100,6 +131,7 @@ public class WebSearch implements HttpHandler
 		String producerKeyword = null;
 		boolean onlyShowUser = false;
 		String response;
+		String username = null;
 		OutputStream output = exchange.getResponseBody();
 		SongSearch searcher = new SongSearch();
 		int i = 0;
@@ -136,7 +168,9 @@ public class WebSearch implements HttpHandler
 		ArrayList<String[]> results = new ArrayList<String[]>();
 		results.add(result1);
 		response += songListing(exchange, results);*/
-		response += songListing(exchange, searcher.search(songKeyword, artistKeyword, albumKeyword, producerKeyword));
+		if (onlyShowUser)
+			username = WebLogin.getUsername(exchange);
+		response += songListing(exchange, searcher.search(songKeyword, artistKeyword, albumKeyword, producerKeyword, username));
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";
 

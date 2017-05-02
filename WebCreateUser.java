@@ -71,13 +71,15 @@ public class WebCreateUser implements HttpHandler
 
 		try
 		{
+			Connection connection = MuzikrDB.getConnection();
+			Statement statement = connection.createStatement();
 			String query = "INSERT INTO User VALUES (";
 			query += "\"" + username + "\", ";
 			query += "\"" + hashedPass + "\", ";
 			query += "\"" + salt + "\", ";
 			query += "\"" + email + "\")";
 		
-			MuzikrDB.rawQuery(query);
+			statement.executeUpdate(query);
 		}
 		catch (SQLException e)
 		{

@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class SongSearch
 {
-	public ArrayList<String[]> search (String songKeyword, String artistKeyword, String albumKeyword, String producerKeyword)
+	public ArrayList<String[]> search (String songKeyword, String artistKeyword, String albumKeyword, String producerKeyword, String username)
 	{
 		try
 		{
@@ -30,6 +30,14 @@ public class SongSearch
 			queryString += "  AND s.albumName like \"%" + albumKeyword + "%\"\n";
 			queryString += "  AND ar.artistName like \"%" + artistKeyword + "%\"\n";
 			queryString += "  AND al.labelName like \"%" + producerKeyword + "%\"\n";
+			if (username != null)
+			{
+				queryString += "  AND EXISTS (SELECT *\n";
+				queryString += "              FROM Owns o\n";
+				queryString += "              WHERE o.username = \"" + username + "\"\n";
+				queryString += "                AND o.songName = s.songName\n";
+				queryString += "                AND o.albumName = s.albumName)";
+			}
 
 			queryResult = MuzikrDB.rawQuery(queryString);
 

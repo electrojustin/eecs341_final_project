@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.util.Random;
 import java.security.*;
+import javax.xml.bind.DatatypeConverter;
 
 public class PasswordScript 
 {
@@ -20,11 +21,11 @@ public class PasswordScript
 
 			int salt = r.nextInt(Integer.MAX_VALUE);
 			String saltedPass = "test" + salt;
-			String hashedPass = new String(digest.digest(saltedPass.getBytes()));
+			String hashedPass = DatatypeConverter.printHexBinary(digest.digest(saltedPass.getBytes()));
 			
 
 			String query = "UPDATE User SET\n";
-			query += " passwordHash=\"" + hashedPass + "\"\n";
+			query += " passwordHash=\"" + hashedPass + "\",\n";
 			query += " passwordSalt=" + salt + "\n";
 			query += " WHERE username=\"" + user + "\"";
 
