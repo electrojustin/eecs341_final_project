@@ -80,10 +80,11 @@ public class WebNewSong implements HttpHandler
 		int i;
 		ArrayList<String[]> parsedRequest;
 		String artist = WebLogin.getUsername(exchange);
-		String songname;
-		String albumname;
-		int length;
-		String file;
+		String songname = null;
+		String albumname = null;
+		int length = 0;
+		String file = null;
+		NewSong song = new NewSong();
 
 		//exchange.getResponseHeaders().add("Content-type", "text/plain");
 		exchange.sendResponseHeaders(200, 0);
@@ -116,6 +117,9 @@ public class WebNewSong implements HttpHandler
 			else if (requestPart[0].equals("upload"))
 				file = requestPart[1];
 		}
+
+		song.insertSong(songname, albumname, length, file);
+		song.insertCreate(songname, albumname, artist);
 		
 		response = "<html>Successfully uploaded song!\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";

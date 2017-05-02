@@ -14,6 +14,7 @@ public class WebNewAlbum implements HttpHandler
 		String genre = null;
 		String label = null;
 		String response;
+		NewAlbum album = new NewAlbum();
 		int i;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -47,7 +48,7 @@ public class WebNewAlbum implements HttpHandler
 			return;
 		}
 
-		//Insert album creation code here
+		album.insertAlbum(albumName, genre, label);
 
 		response = "<html>Successfully created album!\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";

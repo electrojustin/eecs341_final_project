@@ -48,9 +48,10 @@ public class WebPlaylist implements HttpHandler
 	{
 		String response;
 		ArrayList<String> parsedRequest = MuzikrWeb.getKeyValues(exchange.getRequestURI().getQuery());
-		String playlistKeyword;
-		String creatorKeyword;
+		String playlistKeyword = null;
+		String creatorKeyword = null;
 		OutputStream output = exchange.getResponseBody();
+		PlaylistSearch searcher = new PlaylistSearch(); 
 		int i;
 
 		for (i = 0; i < parsedRequest.size(); i += 2)
@@ -73,16 +74,15 @@ public class WebPlaylist implements HttpHandler
 
 		response = "<html><h3>Playlist Search Results:</h3>\n";
 		response += " <br />\n";
-		String[] result1 = new String[4];
+		/*String[] result1 = new String[4];
 		result1 [0] = "MyFavSongs";
 		result1 [1] = "testUser";
 		result1 [2] = "23";
 		result1 [3] = "120";
 		ArrayList<String[]> results = new ArrayList<String[]>();
 		results.add(result1);
-		response += playlistListing(results, "View Songs", "View", "/viewplaylist?");
-		//Replace the above with the below once we have actual database results
-		//response += playlistListing(getResults(), "View Songs", "View", "/viewplaylist?");
+		response += playlistListing(results, "View Songs", "View", "/viewplaylist?");*/
+		response += playlistListing(searcher.search(playlistKeyword, creatorKeyword), "View Songs", "View", "/viewplaylist?");
 		response += "<br /><br />\n";
 		response += "<a href=\"/home\">homepage</a></html>";
 
