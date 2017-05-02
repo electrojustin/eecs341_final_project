@@ -25,13 +25,7 @@ public class WebArtistProfile implements HttpHandler
 		}
 
 		//Implement me
-		//profile = getProfile();
-		profile = new ArtistProfile();
-		profile.username = "testUser";
-		profile.name = "Rick Astley";
-		profile.numSongsMade = 3;
-		profile.numBuys = 27;
-		profile.mostPopular = "Never Gonna Give You Up";
+		profile = getProfile(username);
 
 		if (profile == null)
 		{
@@ -80,4 +74,58 @@ public class WebArtistProfile implements HttpHandler
 		output.close();
 
 	}
+
+	public static ArtistProfile getProfile(String user)
+	{
+		String artistQuery = "SELECT artistID, artistName " +
+				"FROM Artist WHERE username = " + user;
+		ResultSet rs1 = MuzikrDB.rawQuery(artistQuery);
+
+		if(!rs1.next())
+			return null;
+
+		ArtistProfile profile = new ArtistProfile();
+		profile.username = user;
+		profile.name = rs1.getString("artistName");
+		
+		int artistID = rs1.getInt("artistID");
+
+		String numMadeQuery = "SELECT COUNT(*) " +
+				"FROM Creates c " +
+				"WHERE c.artistID = " + artistID;
+		ResultSet rs2 = MuzikrDB.rawQuery(numMadeQuery);
+		
+		rs2.next();
+		profile.numSongsMade = rs2.getInt(1);
+
+		String buyQuery = "SELECT o.songName, o.albumName, COUNT(*) " +
+				"FROM Creates c, Owns o " +
+				"WHERE c.artistID = " + artist + " " +
+				"AND o.songName = c.songName " + 
+				"AND o.albumName = c.albumName " +
+				"GROUP BY o.songName, o.albumName" ;
+		ResultSet rs3 = MuzikrDB.rawQuery(buyQuery);
+
+		String popularSong;
+		int totalBuys = 0;
+		int maxBuys = 0;
+
+		while (rs3.next())
+		{
+			int buys = rs3.getInt(3);
+			totalBuys += buys;
+			if (buys > maxBuys)
+			{
+				maxBuys = buys;
+				popularSong = rs3.getString(1);
+			}
+		}
+
+		profile.numBuys = totalBuys;
+		profile.mostPopular = popularSong;
+	
+		return profile;
+
+	}
+
 }

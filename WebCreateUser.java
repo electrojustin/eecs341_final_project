@@ -47,7 +47,22 @@ public class WebCreateUser implements HttpHandler
 			return;
 		}
 
-		//Insert user creation code here
+
+		Random r = new Random();
+		int salt = r.nextInt();
+
+		String saltedPass = password + salt;
+
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		String hashedPass = new String(digest.digest(saltedPass.getBytes()));
+
+		String query = "INSERT INTO User VALUES (";
+		query += username + ", ";
+		query += hashedPass + ", ";
+		query += salt + ", ";
+		query += email + ")";
+		
+		MuzikrDB.rawQuery(query);
 
 		response = "<html>Successfully created user!\n";
 		response += " <br /><a href=\"/home\">homepage</a></html>";
