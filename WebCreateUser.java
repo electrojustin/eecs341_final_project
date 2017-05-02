@@ -77,10 +77,10 @@ public class WebCreateUser implements HttpHandler
 			Statement statement = connection.createStatement();
 			String query = "INSERT INTO User VALUES (";
 			query += "\"" + username + "\", ";
-			query += "\"" + hashedPass + "\", ";
 			query += "\"" + salt + "\", ";
-			query += "\"" + email + "\")";
-		
+			query += "\"" + email + "\", ";
+			query += "\"" + hashedPass + "\")";
+	
 			statement.executeUpdate(query);
 		}
 		catch (SQLException e)
